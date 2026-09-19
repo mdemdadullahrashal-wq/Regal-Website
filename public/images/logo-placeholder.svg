@@ -1,0 +1,6 @@
+<svg width="220" height="72" viewBox="0 0 220 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="68" height="68" rx="14" fill="#EF1F1F"/>
+  <path d="M24 52V20H40C50 20 56 25 56 34C56 40 53 44 48 46L56 52H46L39 47H34V52H24ZM34 39H40C44 39 46 37 46 34C46 31 44 29 40 29H34V39Z" fill="white"/>
+  <text x="84" y="34" fill="#EF1F1F" font-family="Arial, sans-serif" font-size="26" font-weight="700">Regal</text>
+  <text x="84" y="54" fill="#1A1A1A" font-family="Arial, sans-serif" font-size="14" font-weight="600">Solution</text>
+</svg>
