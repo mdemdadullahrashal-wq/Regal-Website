@@ -150,24 +150,14 @@
             <p>{{ __('site.about_products_lead') }}</p>
         </div>
         <div class="about-products-grid">
-            <a href="{{ route('pos') }}" class="about-product-card about-product-pos reveal">
-                <div class="about-product-icon">{{ __('site.about_product_pos_icon') }}</div>
-                <h3>{{ __('site.about_product_pos_name') }}</h3>
-                <p>{{ __('site.about_product_pos_desc') }}</p>
-                <span class="about-product-link">{{ __('site.about_product_pos_link') }}</span>
-            </a>
-            <a href="{{ route('erp') }}" class="about-product-card about-product-erp reveal reveal-delay-1">
-                <div class="about-product-icon">{{ __('site.about_product_erp_icon') }}</div>
-                <h3>{{ __('site.about_product_erp_name') }}</h3>
-                <p>{{ __('site.about_product_erp_desc') }}</p>
-                <span class="about-product-link">{{ __('site.about_product_erp_link') }}</span>
-            </a>
-            <a href="{{ route('bus-ticket') }}" class="about-product-card about-product-bus reveal reveal-delay-2">
-                <div class="about-product-icon">{{ __('site.about_product_bus_icon') }}</div>
-                <h3>{{ __('site.about_product_bus_name') }}</h3>
-                <p>{{ __('site.about_product_bus_desc') }}</p>
-                <span class="about-product-link">{{ __('site.about_product_bus_link') }}</span>
-            </a>
+            @foreach ($products as $product)
+                <a href="{{ route('products.show', $product->slug) }}" class="about-product-card reveal">
+                    <div class="about-product-icon">{{ strtoupper(mb_substr($product->name_en, 0, 2)) }}</div>
+                    <h3>{{ $product->localizedName() }}</h3>
+                    <p>{{ $product->localizedTagline() }}</p>
+                    <span class="about-product-link">{{ __('site.about_products_explore') }} →</span>
+                </a>
+            @endforeach
         </div>
     </div>
 </section>
@@ -235,7 +225,7 @@
         </div>
         <div class="cta-band-actions">
             <a href="{{ route('contact') }}" class="btn-primary">{{ __('site.about_cta_contact') }}</a>
-            <a href="{{ route('pos') }}" class="btn-ghost-white">{{ __('site.about_cta_products') }}</a>
+            <a href="{{ route('products.index') }}" class="btn-ghost-white">{{ __('site.about_cta_products') }}</a>
         </div>
     </div>
 </section>

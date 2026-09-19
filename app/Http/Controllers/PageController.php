@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PageContent;
+use App\Models\Product;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
@@ -12,7 +13,12 @@ class PageController extends Controller
     {
         $home = $this->pageByKey('home');
 
+        $products = Schema::hasTable('products')
+            ? Product::query()->where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
+            : collect();
+
         return view('pages.home', [
+            'products' => $products,
             'homeTitle' => $home?->localizedTitle(__('site.hero_title')),
             'homeBody' => $home?->localizedBody(__('site.hero_subtitle')),
             'metaTitle' => $home?->localizedTitle(config('regal.brand_name')),
@@ -24,8 +30,13 @@ class PageController extends Controller
     {
         $page = $this->pageByKey('about');
 
+        $products = Schema::hasTable('products')
+            ? Product::query()->where('is_active', true)->orderBy('sort_order')->limit(3)->get()
+            : collect();
+
         return view('pages.about', [
-            'title' => $page?->localizedTitle('About Regal Solution'),
+            'products' => $products,
+            'title' => $page?->localizedTitle(__('site.menu_about')),
             'body' => $page?->localizedBody(config('regal.tagline')),
             'metaTitle' => $page?->localizedTitle('About | '.config('regal.brand_name')),
             'metaDescription' => $page?->localizedBody(config('regal.tagline')),
@@ -53,30 +64,6 @@ class PageController extends Controller
             'body' => $page?->localizedBody(config('regal.tagline')),
             'metaTitle' => $page?->localizedTitle('Career | '.config('regal.brand_name')),
             'metaDescription' => $page?->localizedBody(config('regal.tagline')),
-        ]);
-    }
-
-    public function pos(): View
-    {
-        return view('pages.pos', [
-            'metaTitle' => 'POS Software | '.config('regal.brand_name'),
-            'metaDescription' => 'Fast, reliable point-of-sale software for retail and restaurants in Bangladesh.',
-        ]);
-    }
-
-    public function erp(): View
-    {
-        return view('pages.erp', [
-            'metaTitle' => 'ERP Software | '.config('regal.brand_name'),
-            'metaDescription' => 'Enterprise resource planning software connecting finance, HR, inventory, and more.',
-        ]);
-    }
-
-    public function busTicket(): View
-    {
-        return view('pages.bus-ticket', [
-            'metaTitle' => 'Bus Ticket Booking & Management | '.config('regal.brand_name'),
-            'metaDescription' => 'Complete bus ticket booking and fleet management system for transport companies.',
         ]);
     }
 

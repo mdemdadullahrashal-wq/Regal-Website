@@ -647,4 +647,62 @@ return [
     'privacy_content_13_contact_title' => 'Regal Solution — Privacy Team',
     'privacy_content_13_whatsapp' => 'WhatsApp',
     'privacy_content_13_p1' => 'আমরা দ্রুত গোপনীয়তা-সংক্রান্ত উদ্বেগ সমাধানে প্রতিশ্রুতিবদ্ধ। আমাদের উত্তরে সন্তুষ্ট না হলে আপনার দেশের প্রাসঙ্গিক নিয়ন্ত্রক কর্তৃপক্ষের কাছে অভিযোগ করার অধিকার থাকতে পারে।',
+
+    // Products (dynamic catalog)
+    'menu_blog' => 'ব্লগ',
+    'products_index_title' => 'আমাদের পণ্যসমূহ',
+    'products_index_lead' => 'বাংলাদেশে বর্ধনশীল ব্যবসার জন্য তৈরি SaaS পণ্য ও কাস্টম সার্ভিস।',
+    'home_products_title' => 'আমাদের সফটওয়্যার পণ্য ঘুরে দেখুন',
+    'home_products_lead' => 'ছয়টি SaaS প্ল্যাটফর্ম ও দুটি কাস্টম সার্ভিস — আপনার ব্যবসার জন্য সঠিক টুল বেছে নিন।',
+    'product_type_saas' => 'SaaS',
+    'product_type_service' => 'সার্ভিস',
+    'products_cta_title' => 'কোন পণ্যটি আপনার জন্য উপযুক্ত?',
+    'products_cta_body' => 'সৎ ও চাপমুক্ত পরামর্শের জন্য আমাদের টিমের সাথে কথা বলুন।',
+    'products_cta_contact' => 'যোগাযোগ করুন',
+    'about_products_explore' => 'বিস্তারিত',
+
+    // Product landing page
+    'product_demo' => 'লাইভ ডেমো',
+    'product_register' => 'রেজিস্টার',
+    'product_login' => 'লগইন',
+    'product_features_eyebrow' => 'ফিচার',
+    'product_features_title' => 'আপনার যা যা প্রয়োজন',
+    'product_pricing_eyebrow' => 'মূল্য',
+    'product_pricing_title' => 'সহজ, স্বচ্ছ প্ল্যান',
+    'product_pricing_contact' => 'আপনার চাহিদা অনুযায়ী মূল্য নির্ধারিত হয়।',
+    'product_contact_pricing' => 'মূল্যের জন্য যোগাযোগ করুন',
+    'product_faq_eyebrow' => 'প্রশ্নোত্তর',
+    'product_faq_title' => 'সচরাচর জিজ্ঞাসিত প্রশ্ন',
+    'product_cta_title' => 'শুরু করতে প্রস্তুত?',
+    'product_cta_body' => 'ডেমো বুক করুন এবং দেখুন এই পণ্যটি আপনার ব্যবসায় কীভাবে খাপ খায়।',
+    'product_contact_sales' => 'সেলস টিমের সাথে কথা বলুন',
+    'product_related_title' => 'সম্পর্কিত পণ্য',
+
+    // Blog
+    'blog_kicker' => 'ইনসাইট',
+    'blog_title' => 'ব্লগ',
+    'blog_lead' => 'অটোমেশন, ডিজিটালাইজেশন ও ব্যবসা বৃদ্ধি নিয়ে লেখা।',
+    'blog_empty' => 'এখনো কোনো পোস্ট নেই।',
+    'blog_recent_title' => 'সাম্প্রতিক পোস্ট',
+
+    // Search
+    'search_kicker' => 'সার্চ',
+    'search_title' => 'সার্চ',
+    'search_lead' => 'পণ্য ও লেখা খুঁজুন।',
+    'search_placeholder' => 'পণ্য ও ব্লগ খুঁজুন…',
+    'search_submit' => 'খুঁজুন',
+    'search_count' => '“:query” এর জন্য :count টি ফলাফল',
+    'search_empty' => 'কোনো ফলাফল পাওয়া যায়নি। ভিন্ন কীওয়ার্ড চেষ্টা করুন।',
+
+    // Lead capture
+    'lead_success' => 'ধন্যবাদ! আপনার অনুরোধ পেয়েছি, শিগগিরই যোগাযোগ করব।',
+    'lead_submit' => 'কলব্যাক রিকোয়েস্ট করুন',
+    'lead_popup_title' => 'কল ব্যাক নিন',
+    'lead_popup_sub' => 'আপনার নম্বর দিন, আমরা কল করব।',
+    'lead_fab_label' => 'কলব্যাক রিকোয়েস্ট',
+    'call_now' => 'এখনই কল করুন',
+    'product' => 'পণ্য',
+    'product_select_default' => 'পণ্য নির্বাচন করুন (ঐচ্ছিক)',
+    'lead_recaptcha_failed' => 'নিরাপত্তা যাচাই ব্যর্থ হয়েছে। আবার চেষ্টা করুন।',
+    'lead_sms_reply' => 'Regal Solution-এ যোগাযোগের জন্য ধন্যবাদ। আমরা শিগগিরই কল করব।',
 ];

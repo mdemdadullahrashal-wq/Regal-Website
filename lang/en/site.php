@@ -647,4 +647,62 @@ return [
     'privacy_content_13_contact_title' => 'Regal Solution — Privacy Team',
     'privacy_content_13_whatsapp' => 'WhatsApp',
     'privacy_content_13_p1' => 'We are committed to resolving any privacy concerns promptly. If you are not satisfied with our response, you may have the right to lodge a complaint with the relevant regulatory authority in your country.',
+
+    // Products (dynamic catalog)
+    'menu_blog' => 'Blog',
+    'products_index_title' => 'Our Products',
+    'products_index_lead' => 'SaaS products and custom services built for growing businesses in Bangladesh.',
+    'home_products_title' => 'Explore our software products',
+    'home_products_lead' => 'Six SaaS platforms and two custom services — pick the right tool for your business.',
+    'product_type_saas' => 'SaaS',
+    'product_type_service' => 'Service',
+    'products_cta_title' => 'Not sure which product fits?',
+    'products_cta_body' => 'Talk to our team for honest, no-pressure advice.',
+    'products_cta_contact' => 'Contact Us',
+    'about_products_explore' => 'Explore',
+
+    // Product landing page
+    'product_demo' => 'Live Demo',
+    'product_register' => 'Register',
+    'product_login' => 'Login',
+    'product_features_eyebrow' => 'Features',
+    'product_features_title' => 'Everything you need',
+    'product_pricing_eyebrow' => 'Pricing',
+    'product_pricing_title' => 'Simple, transparent plans',
+    'product_pricing_contact' => 'Pricing is tailored to your requirements.',
+    'product_contact_pricing' => 'Contact for pricing',
+    'product_faq_eyebrow' => 'FAQ',
+    'product_faq_title' => 'Frequently asked questions',
+    'product_cta_title' => 'Ready to get started?',
+    'product_cta_body' => 'Book a demo and see how this product fits your business.',
+    'product_contact_sales' => 'Talk to Sales',
+    'product_related_title' => 'Related products',
+
+    // Blog
+    'blog_kicker' => 'Insights',
+    'blog_title' => 'Blog',
+    'blog_lead' => 'Articles on automation, digitization, and growing your business.',
+    'blog_empty' => 'No posts yet.',
+    'blog_recent_title' => 'Recent posts',
+
+    // Search
+    'search_kicker' => 'Search',
+    'search_title' => 'Search',
+    'search_lead' => 'Find products and articles.',
+    'search_placeholder' => 'Search products & blog…',
+    'search_submit' => 'Search',
+    'search_count' => ':count result(s) for “:query”',
+    'search_empty' => 'No results found. Try a different keyword.',
+
+    // Lead capture
+    'lead_success' => 'Thanks! We received your request and will contact you soon.',
+    'lead_submit' => 'Request a Callback',
+    'lead_popup_title' => 'Get a call back',
+    'lead_popup_sub' => 'Leave your number and we will call you.',
+    'lead_fab_label' => 'Request Callback',
+    'call_now' => 'Call now',
+    'product' => 'Product',
+    'product_select_default' => 'Select a product (optional)',
+    'lead_recaptcha_failed' => 'Security check failed. Please try again.',
+    'lead_sms_reply' => 'Thank you for contacting Regal Solution. We will call you shortly.',
 ];

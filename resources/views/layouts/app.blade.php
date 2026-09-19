@@ -5,6 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $metaTitle ?? config('regal.brand_name') }}</title>
     <meta name="description" content="{{ $metaDescription ?? config('regal.tagline') }}">
+
+    @php
+        $currentRouteName = Route::currentRouteName();
+        $routeParams = request()->route() ? request()->route()->parameters() : [];
+        $currentLocale = app()->getLocale();
+        $altLocale = $currentLocale === 'bn' ? 'en' : 'bn';
+
+        $localeUrls = [];
+        foreach (['bn', 'en'] as $l) {
+            if ($currentRouteName) {
+                $p = $routeParams;
+                $p['locale'] = $l;
+                try {
+                    $localeUrls[$l] = route($currentRouteName, $p);
+                } catch (\Throwable) {
+                    $localeUrls[$l] = url('/'.$l);
+                }
+            } else {
+                $localeUrls[$l] = url('/'.$l);
+            }
+        }
+        $canonicalUrl = $localeUrls[$currentLocale] ?? url('/');
+
+        $organizationJson = json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => config('regal.brand_name'),
+            'url' => config('app.url'),
+            'telephone' => '+88'.config('regal.phone'),
+            'email' => config('regal.email'),
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => config('regal.office_address'),
+                'addressLocality' => 'Dhaka',
+                'addressCountry' => 'BD',
+            ],
+            'sameAs' => [
+                config('regal.whatsapp_link'),
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    @endphp
+
+    {{-- Canonical + hreflang (bn default, en alternate) --}}
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <link rel="alternate" hreflang="bn" href="{{ $localeUrls['bn'] }}">
+    <link rel="alternate" hreflang="en" href="{{ $localeUrls['en'] }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $localeUrls['bn'] }}">
+
+    {{-- Organization schema (sitewide) --}}
+    <script type="application/ld+json">{!! $organizationJson !!}</script>
+
+    @stack('jsonld')
+
     @php
         $faviconIcoPath = public_path('favicon.ico');
         $faviconPngPath = public_path('favicon.png');
@@ -46,6 +99,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     @endif
+    @if (config('regal.recaptcha_enabled') && config('regal.recaptcha_site_key'))
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
 </head>
 <body class="lang-{{ app()->getLocale() }}">
 <header class="site-header" id="site-header">
@@ -74,8 +130,8 @@
                 {{ __('site.menu_about') }}
             </a>
 
-            {{-- Products mega-dropdown --}}
-            <div class="nav-mega {{ request()->routeIs('pos','erp','bus-ticket') ? 'nav-mega--active' : '' }}" id="products-dropdown">
+            {{-- Products mega-dropdown (data-driven) --}}
+            <div class="nav-mega {{ request()->routeIs('products.index','products.show') ? 'nav-mega--active' : '' }}" id="products-dropdown">
                 <button class="nav-link nav-mega__trigger" id="products-trigger"
                         aria-haspopup="true" aria-expanded="false">
                     {{ __('site.menu_products') }}
@@ -88,57 +144,33 @@
                         <p class="nav-mega__tagline">{{ __('site.nav_mega_header_tagline') }}</p>
                     </div>
                     <div class="nav-mega__grid">
-                        <a href="{{ route('pos') }}" class="nav-mega__item nav-mega__item--pos" role="menuitem">
-                            <div class="nav-mega__icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="3" width="20" height="14" rx="2.5"/>
-                                    <path d="M8 21h8M12 17v4"/>
-                                    <path d="M7 9h2m0 0v4m0-4h3"/>
-                                </svg>
-                            </div>
-                            <div class="nav-mega__text">
-                                <strong>{{ __('site.nav_mega_pos_name') }}</strong>
-                                <span>{{ __('site.nav_mega_pos_desc') }}</span>
-                            </div>
-                            <div class="nav-mega__arrow">→</div>
-                        </a>
-
-                        <a href="{{ route('erp') }}" class="nav-mega__item nav-mega__item--erp" role="menuitem">
-                            <div class="nav-mega__icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="2" width="9" height="8" rx="1.5"/>
-                                    <rect x="13" y="2" width="9" height="8" rx="1.5"/>
-                                    <rect x="2" y="14" width="9" height="8" rx="1.5"/>
-                                    <rect x="13" y="14" width="9" height="8" rx="1.5"/>
-                                </svg>
-                            </div>
-                            <div class="nav-mega__text">
-                                <strong>{{ __('site.nav_mega_erp_name') }}</strong>
-                                <span>{{ __('site.nav_mega_erp_desc') }}</span>
-                            </div>
-                            <div class="nav-mega__arrow">→</div>
-                        </a>
-
-                        <a href="{{ route('bus-ticket') }}" class="nav-mega__item nav-mega__item--bus" role="menuitem">
-                            <div class="nav-mega__icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="4" width="18" height="13" rx="2.5"/>
-                                    <path d="M3 10h18M8 20h8"/>
-                                    <circle cx="7.5" cy="20" r="1.5"/><circle cx="16.5" cy="20" r="1.5"/>
-                                </svg>
-                            </div>
-                            <div class="nav-mega__text">
-                                <strong>{{ __('site.nav_mega_bus_name') }}</strong>
-                                <span>{{ __('site.nav_mega_bus_desc') }}</span>
-                            </div>
-                            <div class="nav-mega__arrow">→</div>
-                        </a>
+                        @forelse ($navProducts ?? [] as $navProduct)
+                            <a href="{{ route('products.show', $navProduct->slug) }}" class="nav-mega__item" role="menuitem">
+                                <div class="nav-mega__icon">
+                                    <span class="nav-mega__initial">{{ strtoupper(mb_substr($navProduct->name_en, 0, 2)) }}</span>
+                                </div>
+                                <div class="nav-mega__text">
+                                    <strong>{{ $navProduct->localizedName() }}</strong>
+                                    <span>{{ $navProduct->localizedTagline() }}</span>
+                                </div>
+                                <div class="nav-mega__arrow">→</div>
+                            </a>
+                        @empty
+                            <a href="{{ route('products.index') }}" class="nav-mega__item" role="menuitem">
+                                <div class="nav-mega__text"><strong>{{ __('site.menu_products') }}</strong></div>
+                            </a>
+                        @endforelse
                     </div>
                     <div class="nav-mega__footer">
-                        <a href="{{ route('contact') }}" class="nav-mega__cta">{{ __('site.nav_mega_footer_cta') }}</a>
+                        <a href="{{ route('products.index') }}" class="nav-mega__cta">{{ __('site.nav_mega_footer_cta') }}</a>
                     </div>
                 </div>
             </div>
+
+            <a href="{{ route('blog.index') }}"
+               class="nav-link {{ request()->routeIs('blog.index','blog.show') ? 'nav-link--active' : '' }}">
+                {{ __('site.menu_blog') }}
+            </a>
 
             <a href="{{ route('career') }}"
                class="nav-link {{ request()->routeIs('career') ? 'nav-link--active' : '' }}">
@@ -154,7 +186,10 @@
 
         {{-- Right side actions --}}
         <div class="nav-actions">
-            <a class="nav-lang" href="{{ route('locale.switch', app()->getLocale() === 'en' ? 'bn' : 'en') }}"
+            <form class="nav-search" method="get" action="{{ route('search') }}" role="search">
+                <input type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('site.search_placeholder') }}" aria-label="{{ __('site.search_placeholder') }}">
+            </form>
+            <a class="nav-lang" href="{{ $localeUrls[$altLocale] }}"
                title="Switch language">
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
                     <circle cx="10" cy="10" r="8"/>
@@ -192,12 +227,29 @@
             <p>{{ config('regal.office_address') }}</p>
         </div>
         <div>
+            <a href="{{ route('products.index') }}">{{ __('site.menu_products') }}</a><br>
+            <a href="{{ route('blog.index') }}">{{ __('site.menu_blog') }}</a><br>
             <a href="{{ route('privacy') }}">{{ __('site.privacy_title') }}</a><br>
             <a href="{{ route('terms') }}">{{ __('site.terms_title') }}</a>
         </div>
     </div>
 </footer>
 
+{{-- Floating action buttons --}}
 <a class="whatsapp-fab" href="{{ config('regal.whatsapp_link') }}" target="_blank" rel="noopener">WhatsApp</a>
+<a class="call-fab" href="tel:+88{{ config('regal.phone') }}" title="{{ __('site.call_now') }}">📞</a>
+
+{{-- Lead capture popup (sitewide) --}}
+<div class="lead-popup" id="lead-popup" aria-hidden="true">
+    <div class="lead-popup__overlay" data-lead-close></div>
+    <div class="lead-popup__panel" role="dialog" aria-modal="true" aria-labelledby="lead-popup-title">
+        <button class="lead-popup__close" data-lead-close aria-label="Close">×</button>
+        <h3 id="lead-popup-title">{{ __('site.lead_popup_title') }}</h3>
+        <p class="lead-popup__sub">{{ __('site.lead_popup_sub') }}</p>
+        @include('partials.lead-form')
+    </div>
+</div>
+<button class="lead-fab" id="lead-fab" aria-haspopup="dialog">{{ __('site.lead_fab_label') }}</button>
+
 </body>
 </html>

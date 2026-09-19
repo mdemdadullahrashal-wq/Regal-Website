@@ -178,3 +178,32 @@ document.querySelectorAll('[data-software-slider]').forEach((slider) => {
 });
 
 
+
+// ── Lead popup ──────────────────────────────────────────────
+const leadFab = document.getElementById('lead-fab');
+const leadPopup = document.getElementById('lead-popup');
+
+if (leadFab && leadPopup) {
+    const openPopup = () => {
+        leadPopup.classList.add('is-open');
+        leadPopup.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+    const closePopup = () => {
+        leadPopup.classList.remove('is-open');
+        leadPopup.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    leadFab.addEventListener('click', openPopup);
+
+    leadPopup.querySelectorAll('[data-lead-close]').forEach((el) => {
+        el.addEventListener('click', closePopup);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && leadPopup.classList.contains('is-open')) {
+            closePopup();
+        }
+    });
+}
