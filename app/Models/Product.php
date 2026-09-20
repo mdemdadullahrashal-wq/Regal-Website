@@ -24,6 +24,7 @@ class Product extends Model
         'demo_url',
         'register_url',
         'login_url',
+        'download_url',
         'is_saas',
         'sort_order',
         'is_active',
@@ -87,5 +88,22 @@ class Product extends Model
         return app()->getLocale() === 'bn'
             ? ($this->faq_bn ?? [])
             : ($this->faq_en ?? []);
+    }
+
+    /**
+     * Accent colour used for the product icon / slider theming.
+     */
+    public function accentColor(): string
+    {
+        return [
+            'school-management' => '#2563eb',
+            'apartment-management' => '#0d9488',
+            'sales-crm' => '#7c3aed',
+            'mosque-management' => '#059669',
+            'pos' => '#ea580c',
+            'bus-ticket' => '#0891b2',
+            'ecommerce-website' => '#db2777',
+            'custom-software' => '#4f46e5',
+        ][$this->slug] ?? '#e02525';
     }
 }

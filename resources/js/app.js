@@ -106,6 +106,9 @@ document.querySelectorAll('.stat-number[data-count]').forEach((el) => statObserv
 // Also observe bus ticket stat numbers
 document.querySelectorAll('.bt-stat-num[data-count]').forEach((el) => statObserver.observe(el));
 
+// Also observe about page stat numbers
+document.querySelectorAll('.about-stat-num[data-count]').forEach((el) => statObserver.observe(el));
+
 // ── Software homepage slider ─────────────────────────────────
 document.querySelectorAll('[data-software-slider]').forEach((slider) => {
     const slides = Array.from(slider.querySelectorAll('[data-slide]'));

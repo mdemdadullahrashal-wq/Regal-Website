@@ -2,38 +2,33 @@
 
 @section('content')
 
-{{-- ════════════════════════════════════════
-    HERO
-════════════════════════════════════════ --}}
-<section class="hero">
-    <div class="hero-orb hero-orb-a" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-b" aria-hidden="true"></div>
-
-    <div class="container hero-grid">
-        <div class="hero-copy reveal">
-            <p class="kicker">{{ __('site.hero_kicker') }}</p>
-            <h1 class="hero-title-animate">{{ $homeTitle }}</h1>
-            <p class="lead">{{ $homeBody }}</p>
-            <div class="cta-row">
-                <a class="btn btn-primary" href="#products">{{ __('site.home_explore_products') }}</a>
-                <a class="btn btn-outline" href="{{ route('contact') }}">{{ __('site.cta_contact') }}</a>
-            </div>
-        </div>
-        <div class="hero-card automation-visual reveal reveal-delay-1">
-            <div class="automation-grid" aria-hidden="true"></div>
-            <div class="automation-head">
-                <span class="automation-kicker">Automation Engine</span>
-                <h3>One intelligent flow powering every software platform</h3>
-            </div>
-            <div class="automation-status-row">
-                <span class="automation-pill">Inventory Sync</span>
-                <span class="automation-pill">Instant Reports</span>
-                <span class="automation-pill">Approval Workflow</span>
-                <span class="automation-pill">QR & SMS</span>
-            </div>
-        </div>
+{{-- ── BRAND SLOGAN STRIP ── --}}
+<div class="home-slogan">
+    <div class="container home-slogan__inner">
+        <span class="home-slogan__line" aria-hidden="true"></span>
+        <span class="home-slogan__text">{{ __('site.home_slogan') }}</span>
+        <span class="home-slogan__line" aria-hidden="true"></span>
     </div>
-</section>
+</div>
+
+{{-- ════════════════════════════════════════
+    HERO SLIDER (full-width, one slide per product)
+════════════════════════════════════════ --}}
+@php
+    $heroSlides = $products->map(function ($p) {
+        return [
+            'accent' => $p->accentColor(),
+            'badge' => $p->is_saas ? __('site.product_type_saas') : __('site.product_type_service'),
+            'title' => $p->localizedName(),
+            'desc' => $p->localizedSummary(),
+            'cta_url' => route('products.show', $p->slug),
+            'cta_label' => __('site.slide_view_details'),
+            'icon' => $p,
+            'visual_kicker' => $p->localizedTagline(),
+        ];
+    })->values()->all();
+@endphp
+@include('partials.hero-slider', ['slides' => $heroSlides])
 
 {{-- ════════════════════════════════════════
     PRODUCTS GRID (all 8, data-driven)
@@ -48,14 +43,14 @@
 
         <div class="products-grid">
             @foreach ($products as $product)
-                <a class="product-card reveal" href="{{ route('products.show', $product->slug) }}">
+                <a class="product-card reveal" href="{{ route('products.show', $product->slug) }}" style="--accent: {{ $product->accentColor() }}">
                     <div class="product-card__top">
                         <span class="product-card__badge {{ $product->is_saas ? 'product-card__badge--saas' : 'product-card__badge--service' }}">
                             {{ $product->is_saas ? __('site.product_type_saas') : __('site.product_type_service') }}
                         </span>
                         <span class="product-card__arrow">→</span>
                     </div>
-                    <div class="product-card__icon">{{ strtoupper(mb_substr($product->name_en, 0, 2)) }}</div>
+                    <div class="product-card__icon">@include('partials.product-icon', ['product' => $product])</div>
                     <h3 class="product-card__name">{{ $product->localizedName() }}</h3>
                     <p class="product-card__tagline">{{ $product->localizedTagline() }}</p>
                 </a>

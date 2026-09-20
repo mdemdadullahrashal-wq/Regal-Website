@@ -6,7 +6,12 @@
         <div>
             <h1>{{ $title }}</h1>
             <p class="lead">{{ $body }}</p>
-            <p><strong>{{ __('site.phone') }}:</strong> {{ config('regal.phone') }}</p>
+            <p><strong>{{ __('site.phone') }}:</strong></p>
+            <ul class="contact-phone-list">
+                @foreach (config('regal.phones', []) as $ph)
+                    <li><a class="tel-link" href="tel:{{ $ph }}">📞 {{ $ph }}</a></li>
+                @endforeach
+            </ul>
             <p><strong>{{ __('site.email') }}:</strong> {{ config('regal.email') }}</p>
             <p>{{ config('regal.office_address') }}</p>
         </div>

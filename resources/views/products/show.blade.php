@@ -73,8 +73,43 @@
                 @if ($product->login_url)
                     <a href="{{ $product->login_url }}" target="_blank" rel="noopener" class="btn btn-outline">{{ __('site.product_login') }}</a>
                 @endif
+                @if ($product->download_url)
+                    <a href="{{ $product->download_url }}" target="_blank" rel="noopener" class="btn btn-outline">{{ __('site.product_download') }}</a>
+                @endif
             </div>
         </div>
+    </div>
+</section>
+
+{{-- ── Highlights slider ── --}}
+@php
+    $pFeatures = $product->localizedFeatures();
+    $pChunkSize = max(1, (int) ceil(count($pFeatures) / 3));
+    $pChunks = array_values(array_chunk($pFeatures, $pChunkSize));
+    $pSlideTitles = [__('site.slide_title_1'), __('site.slide_title_2'), __('site.slide_title_3')];
+    $pSlides = [];
+    foreach ($pChunks as $ci => $chunk) {
+        $pSlides[] = [
+            'accent' => $product->accentColor(),
+            'badge' => __('site.slide_highlight_badge').' '.($ci + 1),
+            'title' => $pSlideTitles[$ci] ?? $product->localizedName(),
+            'features' => $chunk,
+            'tags' => [],
+            'cta_url' => ($ci === count($pChunks) - 1) ? ($product->demo_url ?: route('contact')) : null,
+            'cta_label' => $product->demo_url ? __('site.product_demo') : __('site.cta_contact'),
+            'icon' => $product,
+            'visual_title' => $product->localizedName(),
+            'visual_kicker' => __('site.slide_visual_kicker'),
+        ];
+    }
+@endphp
+<section class="software-slider-section">
+    <div class="container">
+        <div class="software-slider-header reveal">
+            <h2>{{ __('site.product_highlights_title') }}</h2>
+            <p>{{ $product->localizedSummary() }}</p>
+        </div>
+        @include('partials.software-slider', ['slides' => $pSlides])
     </div>
 </section>
 
@@ -170,8 +205,8 @@
         <h2 class="section-title reveal">{{ __('site.product_related_title') }}</h2>
         <div class="products-grid products-grid--related">
             @foreach ($related as $rel)
-                <a class="product-card reveal" href="{{ route('products.show', $rel->slug) }}">
-                    <div class="product-card__icon">{{ strtoupper(mb_substr($rel->name_en, 0, 2)) }}</div>
+                <a class="product-card reveal" href="{{ route('products.show', $rel->slug) }}" style="--accent: {{ $rel->accentColor() }}">
+                    <div class="product-card__icon">@include('partials.product-icon', ['product' => $rel])</div>
                     <h3 class="product-card__name">{{ $rel->localizedName() }}</h3>
                     <p class="product-card__tagline">{{ $rel->localizedTagline() }}</p>
                 </a>

@@ -99,6 +99,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     @endif
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
     @if (config('regal.recaptcha_enabled') && config('regal.recaptcha_site_key'))
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     @endif
@@ -146,8 +149,8 @@
                     <div class="nav-mega__grid">
                         @forelse ($navProducts ?? [] as $navProduct)
                             <a href="{{ route('products.show', $navProduct->slug) }}" class="nav-mega__item" role="menuitem">
-                                <div class="nav-mega__icon">
-                                    <span class="nav-mega__initial">{{ strtoupper(mb_substr($navProduct->name_en, 0, 2)) }}</span>
+                                <div class="nav-mega__icon" style="--accent: {{ $navProduct->accentColor() }}">
+                                    @include('partials.product-icon', ['product' => $navProduct])
                                 </div>
                                 <div class="nav-mega__text">
                                     <strong>{{ $navProduct->localizedName() }}</strong>
@@ -222,7 +225,11 @@
             <p>{{ config('regal.tagline') }}</p>
         </div>
         <div>
-            <p><strong>{{ __('site.phone') }}:</strong> {{ config('regal.phone') }}</p>
+            <p><strong>{{ __('site.phone') }}:</strong>
+                @foreach (config('regal.phones', []) as $ph)
+                    <a class="tel-link" href="tel:{{ $ph }}">{{ $ph }}</a>{{ ! $loop->last ? ', ' : '' }}
+                @endforeach
+            </p>
             <p><strong>{{ __('site.email') }}:</strong> {{ config('regal.email') }}</p>
             <p>{{ config('regal.office_address') }}</p>
         </div>
@@ -237,7 +244,7 @@
 
 {{-- Floating action buttons --}}
 <a class="whatsapp-fab" href="{{ config('regal.whatsapp_link') }}" target="_blank" rel="noopener">WhatsApp</a>
-<a class="call-fab" href="tel:+88{{ config('regal.phone') }}" title="{{ __('site.call_now') }}">📞</a>
+<a class="call-fab" href="tel:{{ config('regal.phones.0', config('regal.phone')) }}" title="{{ __('site.call_now') }}">📞</a>
 
 {{-- Lead capture popup (sitewide) --}}
 <div class="lead-popup" id="lead-popup" aria-hidden="true">

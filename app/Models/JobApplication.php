@@ -10,7 +10,16 @@ class JobApplication extends Model
         'name',
         'email',
         'phone',
+        'photo',
         'position',
-        'cover_letter',
+        'address',
+        'has_sales_experience',
+        'years_experience',
+        'software_experience',
+        'work_type',
+        'work_from_home',
+        'home_address',
+        'commission_based',
+        'expected_salary',
     ];
 }

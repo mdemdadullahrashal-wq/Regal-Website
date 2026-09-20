@@ -11,14 +11,14 @@
 
         <div class="products-grid">
             @foreach ($products as $product)
-                <a class="product-card reveal" href="{{ route('products.show', $product->slug) }}">
+                <a class="product-card reveal" href="{{ route('products.show', $product->slug) }}" style="--accent: {{ $product->accentColor() }}">
                     <div class="product-card__top">
                         <span class="product-card__badge {{ $product->is_saas ? 'product-card__badge--saas' : 'product-card__badge--service' }}">
                             {{ $product->is_saas ? __('site.product_type_saas') : __('site.product_type_service') }}
                         </span>
                         <span class="product-card__arrow">→</span>
                     </div>
-                    <div class="product-card__icon">{{ strtoupper(mb_substr($product->name_en, 0, 2)) }}</div>
+                    <div class="product-card__icon">@include('partials.product-icon', ['product' => $product])</div>
                     <h3 class="product-card__name">{{ $product->localizedName() }}</h3>
                     <p class="product-card__tagline">{{ $product->localizedTagline() }}</p>
                 </a>

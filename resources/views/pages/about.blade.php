@@ -141,27 +141,6 @@
     </div>
 </section>
 
-{{-- ── PRODUCTS OVERVIEW ────────────────────────────────────────────── --}}
-<section class="about-products page-section">
-    <div class="container">
-        <div class="section-head reveal">
-            <span class="section-kicker">{{ __('site.about_products_kicker') }}</span>
-            <h2>{{ __('site.about_products_title') }}</h2>
-            <p>{{ __('site.about_products_lead') }}</p>
-        </div>
-        <div class="about-products-grid">
-            @foreach ($products as $product)
-                <a href="{{ route('products.show', $product->slug) }}" class="about-product-card reveal">
-                    <div class="about-product-icon">{{ strtoupper(mb_substr($product->name_en, 0, 2)) }}</div>
-                    <h3>{{ $product->localizedName() }}</h3>
-                    <p>{{ $product->localizedTagline() }}</p>
-                    <span class="about-product-link">{{ __('site.about_products_explore') }} →</span>
-                </a>
-            @endforeach
-        </div>
-    </div>
-</section>
-
 {{-- ── LEADERSHIP ───────────────────────────────────────────────────── --}}
 <section class="about-leadership page-section" style="background: var(--paper);">
     <div class="container">
