@@ -3834,7 +3834,7 @@ footer .tel-link { color: inherit; font-weight: 600; }
 ═══════════════════════════════════════════════════════ */
 
 .hero-slider { background: #fff; }
-.hero-slider__stage { position: relative; min-height: 540px; }
+.hero-slider__stage { position: relative; min-height: 400px; }
 .hero-slide {
     position: absolute; inset: 0;
     display: flex; align-items: center;
@@ -3875,7 +3875,7 @@ footer .tel-link { color: inherit; font-weight: 600; }
 .hero-slide__visual { display: flex; justify-content: center; }
 
 .app-mockup {
-    width: min(100%, 420px);
+    width: min(100%, 340px);
     border-radius: 22px;
     background: #fff;
     border: 1px solid rgba(0,0,0,0.06);
@@ -3894,10 +3894,10 @@ footer .tel-link { color: inherit; font-weight: 600; }
 .app-mockup__bar span:first-child { background: #ff5f57; }
 .app-mockup__bar span:nth-child(2) { background: #febc2e; }
 .app-mockup__bar span:nth-child(3) { background: #28c840; }
-.app-mockup__body { padding: 24px; }
-.app-mockup__head { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.app-mockup__body { padding: 16px; }
+.app-mockup__head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
 .app-mockup__icon {
-    width: 54px; height: 54px; border-radius: 14px;
+    width: 46px; height: 46px; border-radius: 14px;
     display: grid; place-items: center; flex: none;
     background: color-mix(in srgb, var(--accent) 12%, #fff);
     color: var(--accent);
@@ -3905,14 +3905,14 @@ footer .tel-link { color: inherit; font-weight: 600; }
 .app-mockup__icon svg { width: 30px; height: 30px; }
 .app-mockup__name strong { display: block; font-size: 1.08rem; color: var(--brand-dark); }
 .app-mockup__name small { color: #888; }
-.app-mockup__lines { display: grid; gap: 10px; margin-bottom: 20px; }
+.app-mockup__lines { display: grid; gap: 8px; margin-bottom: 14px; }
 .app-mockup__lines i { display: block; height: 10px; border-radius: 6px; background: #ececec; }
 .app-mockup__lines i:nth-child(2) { width: 86%; }
 .app-mockup__lines i:nth-child(3) { width: 92%; }
 .app-mockup__lines i:nth-child(4) { width: 64%; }
 .app-mockup__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .app-mockup__cards div {
-    height: 66px; border-radius: 12px;
+    height: 48px; border-radius: 12px;
     background: color-mix(in srgb, var(--accent) 10%, #fff);
     border: 1px solid color-mix(in srgb, var(--accent) 18%, #fff);
 }
@@ -3938,7 +3938,7 @@ footer .tel-link { color: inherit; font-weight: 600; }
 .hero-nav-btn:hover { color: var(--brand-red); border-color: rgba(239,31,31,0.4); transform: translateY(-1px); }
 
 @media (max-width: 900px) {
-    .hero-slider__stage { min-height: 720px; }
+    .hero-slider__stage { min-height: 480px; }
     .hero-slide__inner { grid-template-columns: 1fr; gap: 28px; }
     .app-mockup { transform: none; }
     .hero-slide.is-active .app-mockup { transform: none; }

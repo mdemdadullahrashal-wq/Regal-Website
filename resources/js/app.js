@@ -167,11 +167,11 @@ document.querySelectorAll('[data-software-slider]').forEach((slider) => {
         restartAutoPlay();
     });
 
-    let autoPlay = setInterval(nextSlide, 5000);
+    let autoPlay = setInterval(nextSlide, 3000);
 
     function restartAutoPlay() {
         clearInterval(autoPlay);
-        autoPlay = setInterval(nextSlide, 5000);
+        autoPlay = setInterval(nextSlide, 3000);
     }
 
     slider.addEventListener('mouseenter', () => clearInterval(autoPlay));
