@@ -1,23 +1,26 @@
 # Regal Solution Website
 
 Bilingual (EN/BN, Bangla default) Laravel marketing website for Regal Solution's SaaS products.
+**Live:** https://regal-solution.com (deployed 2026-09-26).
 
 ## Features
 - **Locale-prefixed routing:** `/bn` (default, `/` → 301 `/bn`) + `/en`, hreflang + canonical, language switcher.
-- **8 products** (6 SaaS + 2 services) with landing pages: hero → highlights slider → features → pricing → FAQ → related.
+- **8 products** (6 SaaS + 2 services) with landing pages: hero → features (title + description) → pricing/callback → FAQ → related.
   - SaaS: School, Apartment, Sales CRM, Mosque, POS, Bus Ticket
-  - Services: E-commerce website, Custom software
-- **Full-width hero carousel** on the home page (one slide per product) with per-product SVG icons.
-- **Career screening form** (full-width) with conditional yes/no questions + photo upload.
-- **Lead capture** (popup + floating button) → CRM / SMS (env-driven).
-- **Blog** (bn/en), **global search**, **WhatsApp + call floating buttons**.
-- **SEO/AI:** JSON-LD (Organization, SoftwareApplication/Product, FAQPage, BreadcrumbList), `sitemap.xml`, `robots.txt`, `llms.txt`.
-- **Filament admin panel** — edit Pages/Services, view Job Applications.
+  - Services: E-commerce website, Custom software & website
+- **Full-width hero carousel** on the home page (one slide per product, compact on mobile, fast autoplay).
+- **Full-width products mega-menu** (desktop, spans the content area).
+- **Mobile-responsive:** compact card grids (2-col), testimonial swipe carousel, no horizontal overflow.
+- **Lead capture** (popup + floating button) → CRM / SMS (env-driven, gracefully skipped when unconfigured).
+- **Blog** (bn/en, long-form Markdown) + **global search** + **WhatsApp + call floating buttons**.
+- **Social links** — admin-managed (Filament), rendered in footer + Organization JSON-LD `sameAs`.
+- **SEO/AI:** JSON-LD (Organization, SoftwareApplication/Product, FAQPage, BreadcrumbList, Article), Open Graph + Twitter Card, `sitemap.xml`, `robots.txt`, `llms.txt`.
+- **Real logo + favicons + OG image** (1200×630).
 
 ## Tech Stack
 - Laravel 12
 - Filament 5
-- MySQL (production) / SQLite (optional local)
+- SQLite (production) / MySQL (local dev — `regal_website`)
 - Vite
 
 ## Local Setup
@@ -35,10 +38,12 @@ npm install
 npm run build
 ```
 
-## Admin Panel
-- URL: `/admin`
-- Default from `.env`: `ADMIN_EMAIL` / `ADMIN_PASSWORD` (change after first login).
-- Job applications appear under **Leads → Job Applications**.
+## Admin Panel (`/admin`)
+- Login with `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`.
+- **Content → Blog Posts** — write/manage blog posts.
+- **Settings → Social Links** — add/edit Facebook, YouTube, etc.
+- **Leads → Job Applications** — view career applications.
+- Services + Page Contents resources for site content.
 
 ## Key Commands (after code changes)
 ```bash
@@ -50,19 +55,18 @@ php artisan storage:link  # once, for photo/CV uploads
 ```
 
 ## Environment Notes
-- `REGAL_PHONE`, `REGAL_PHONES`, `REGAL_EMAIL`, `REGAL_WHATSAPP_LINK`, `REGAL_OFFICE_ADDRESS` — contact details.
+- `REGAL_PHONE`, `REGAL_PHONES`, `REGAL_EMAIL`, `REGAL_WHATSAPP_LINK`, `REGAL_OFFICE_ADDRESS`, `REGAL_LOGO_PATH` — brand/contact.
+- `ADMIN_EMAIL` / `ADMIN_PASSWORD` — admin login.
 - `CRM_LEADS_API_URL/TOKEN`, `BULKSMSBD_*`, `NOTIFY_PHONE` — lead → CRM/SMS (skip+log when unconfigured).
+- `RECAPTCHA_ENABLED/SITE_KEY/SECRET_KEY` — optional spam protection.
 - `MAIL_MAILER` defaults to `log` — set real SMTP for email notifications.
 - Ensure PHP extensions: `intl`, `zip`, `mbstring`, `fileinfo`, `pdo_mysql`.
 
-## cPanel Deployment
-Read full guide at:
-- `docs/CPANEL_DEPLOY.md`
-- `DEPLOY_CHECKPOINT_2026-04-05.md` (architecture + gotchas)
+## cPanel Deployment (ExonHost, no SSH)
+Production architecture (locked docroot):
+- App core: `/home/regalsol/regal_app`
+- Web root: `/home/regalsol/public_html`
+- `bootstrap/app.php` must set `$app->usePublicPath('/home/regalsol/public_html')`.
+- `public_html/index.php` points to `../regal_app/...`.
 
-Quick command after deploy:
-```bash
-composer install --no-dev --optimize-autoloader
-php artisan migrate --force --seed
-php artisan optimize
-```
+Deploy method (UAPI + self-extracting PHP): see `docs/CPANEL_DEPLOY.md` + `DEPLOY_CHECKPOINT_2026-04-05.md`. `deploy.sh` builds + packages a clean archive.
