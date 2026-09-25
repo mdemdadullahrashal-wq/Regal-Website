@@ -4005,3 +4005,32 @@ footer .tel-link { color: inherit; font-weight: 600; }
     height: 1px; width: 56px;
     background: linear-gradient(90deg, transparent, #d4b25e, transparent);
 }
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE POLISH (2026-09-26)
+═══════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+    /* Tighter section rhythm */
+    .page-section { padding: 40px 0; }
+    .hero { padding: 48px 0 40px; }
+
+    /* Compact hero slider on phones — hide decorative mockup */
+    .hero-slider__stage { min-height: auto; }
+    .hero-slide { position: relative; inset: auto; display: none; transform: none; }
+    .hero-slide.is-active { display: flex; opacity: 1; }
+    .hero-slide__inner { grid-template-columns: 1fr; gap: 20px; padding: 40px 0 32px; }
+    .hero-slide__visual { display: none; }
+    .hero-slide__copy h2 { font-size: 30px; }
+    .hero-slide__cta { flex-direction: column; align-items: stretch; }
+    .hero-slide__cta .btn { width: 100%; text-align: center; }
+
+    /* Slogan strip wraps instead of overflowing */
+    .home-slogan__text { white-space: normal; font-size: 17px; }
+
+    /* Stack hero CTAs full-width (product pages) */
+    .hero-cta { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
+    .hero-cta .btn { width: 100%; text-align: center; }
+
+    /* Larger tap targets */
+    .btn { min-height: 44px; }
+}

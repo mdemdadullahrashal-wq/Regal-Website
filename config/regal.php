@@ -25,6 +25,6 @@ return [
     'recaptcha_secret_key' => env('RECAPTCHA_SECRET_KEY'),
 
     'admin_name' => env('ADMIN_NAME', 'Regal Admin'),
-    'admin_email' => env('ADMIN_EMAIL', 'admin@regal-solution.com'),
-    'admin_password' => env('ADMIN_PASSWORD', 'ChangeMe123!'),
+    'admin_email' => env('ADMIN_EMAIL', 'rashal007@gmail.com'),
+    'admin_password' => env('ADMIN_PASSWORD', 'Rasel@Regal26'),
 ];
