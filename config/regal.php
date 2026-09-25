@@ -3,7 +3,7 @@
 return [
     'brand_name' => env('REGAL_BRAND_NAME', 'Regal Solution'),
     'tagline' => env('REGAL_TAGLINE', 'Your trusted automation partner'),
-    'logo_path' => env('REGAL_LOGO_PATH', 'images/logo-placeholder.svg'),
+    'logo_path' => env('REGAL_LOGO_PATH', 'images/logo.png'),
     'phone' => env('REGAL_PHONE', '01786280504'),
     'phones' => ['09639666972', '01913377065'],
     'email' => env('REGAL_EMAIL', 'regal.solution247@gmail.com'),

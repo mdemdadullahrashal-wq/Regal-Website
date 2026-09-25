@@ -4095,3 +4095,16 @@ footer .tel-link { color: inherit; font-weight: 600; }
         max-width: none;
     }
 }
+
+/* ═══════════════════════════════════════════════════════
+   SOCIAL LINKS (footer)
+═══════════════════════════════════════════════════════ */
+.social-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.social-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 10px;
+    background: #f1f1f1; color: #444;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.social-link svg { width: 20px; height: 20px; }
+.social-link:hover { background: var(--brand-red); color: #fff; transform: translateY(-2px); }

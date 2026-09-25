@@ -3,6 +3,7 @@
 namespace App\View\Composers;
 
 use App\Models\Product;
+use App\Models\SocialLink;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
@@ -12,6 +13,10 @@ class NavComposer
     {
         $view->with('navProducts', Schema::hasTable('products')
             ? Product::query()->where('is_active', true)->orderBy('sort_order')->orderBy('id')->get()
+            : collect());
+
+        $view->with('socialLinks', Schema::hasTable('social_links')
+            ? SocialLink::query()->where('is_active', true)->whereNotNull('url')->where('url', '!=', '')->orderBy('sort_order')->get()
             : collect());
     }
 }

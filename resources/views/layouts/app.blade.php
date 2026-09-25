@@ -41,9 +41,7 @@
                 'addressLocality' => 'Dhaka',
                 'addressCountry' => 'BD',
             ],
-            'sameAs' => [
-                config('regal.whatsapp_link'),
-            ],
+            'sameAs' => collect($socialLinks ?? [])->pluck('url')->filter()->push(config('regal.whatsapp_link'))->unique()->values()->all(),
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     @endphp
 
@@ -52,6 +50,21 @@
     <link rel="alternate" hreflang="bn" href="{{ $localeUrls['bn'] }}">
     <link rel="alternate" hreflang="en" href="{{ $localeUrls['en'] }}">
     <link rel="alternate" hreflang="x-default" href="{{ $localeUrls['bn'] }}">
+
+    {{-- Open Graph + Twitter Card (social sharing) --}}
+    <meta property="og:site_name" content="{{ config('regal.brand_name') }}">
+    <meta property="og:title" content="{{ $metaTitle ?? config('regal.brand_name') }}">
+    <meta property="og:description" content="{{ $metaDescription ?? config('regal.tagline') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:image" content="{{ asset('images/og-image.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="{{ $currentLocale === 'bn' ? 'bn_BD' : 'en_US' }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $metaTitle ?? config('regal.brand_name') }}">
+    <meta name="twitter:description" content="{{ $metaDescription ?? config('regal.tagline') }}">
+    <meta name="twitter:image" content="{{ asset('images/og-image.png') }}">
 
     {{-- Organization schema (sitewide) --}}
     <script type="application/ld+json">{!! $organizationJson !!}</script>
@@ -223,6 +236,15 @@
         <div>
             <h3>{{ config('regal.brand_name') }}</h3>
             <p>{{ config('regal.tagline') }}</p>
+            @if (($socialLinks ?? collect())->isNotEmpty())
+                <div class="social-links">
+                    @foreach ($socialLinks as $sl)
+                        <a class="social-link" href="{{ $sl->url }}" target="_blank" rel="noopener" aria-label="{{ $sl->name }}">
+                            @include('partials.social-icon', ['icon' => $sl->icon])
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         </div>
         <div>
             <p><strong>{{ __('site.phone') }}:</strong>
