@@ -3665,6 +3665,15 @@ textarea {
 .blog-article__title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--brand-dark); margin: 0 0 10px; }
 .blog-article__meta { color: #999; font-size: 0.9rem; margin-bottom: 24px; }
 .blog-article__body p { font-size: 1.02rem; line-height: 1.75; color: #444; margin: 0 0 18px; }
+.blog-article__body h2 { font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); margin: 1.6em 0 0.6em; line-height: 1.3; }
+.blog-article__body h3 { font-size: 1.15rem; font-weight: 700; color: var(--brand-dark); margin: 1.4em 0 0.5em; line-height: 1.35; }
+.blog-article__body ul,
+.blog-article__body ol { margin: 0 0 1.2em; padding-left: 1.4em; }
+.blog-article__body li { font-size: 1.02rem; line-height: 1.7; color: #444; margin: 0.4em 0; }
+.blog-article__body strong { font-weight: 700; color: #1a1a1a; }
+.blog-article__body a { color: var(--brand-red); font-weight: 600; text-decoration: underline; }
+.blog-article__body a:hover { color: #bd1111; }
+.blog-article__body blockquote { border-left: 3px solid var(--brand-red); padding: 4px 0 4px 18px; color: #555; margin: 1.2em 0; font-style: italic; }
 
 /* Search */
 .nav-search { display: flex; align-items: center; }

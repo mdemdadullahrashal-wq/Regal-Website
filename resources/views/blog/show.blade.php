@@ -33,11 +33,7 @@
         <h1 class="blog-article__title reveal">{{ $post->localizedTitle() }}</h1>
         <p class="blog-article__meta reveal">{{ $post->published_at?->format('d M Y') }}</p>
         <div class="blog-article__body reveal">
-            @foreach (preg_split('/\n+/', $post->localizedBody()) as $paragraph)
-                @if (trim($paragraph) !== '')
-                    <p>{{ $paragraph }}</p>
-                @endif
-            @endforeach
+            {!! \Illuminate\Support\Str::markdown($post->localizedBody()) !!}
         </div>
     </div>
 </article>
