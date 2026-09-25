@@ -3606,7 +3606,9 @@ textarea {
 }
 .pricing-card__features li::before { content: '✓'; position: absolute; left: 0; color: #1a9e55; font-weight: 700; }
 .pricing-empty { text-align: center; padding: 30px 0; }
-.pricing-empty p { color: #666; margin-bottom: 16px; }
+.pricing-empty h3 { font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); margin: 0 0 10px; }
+.pricing-empty p { color: #666; margin-bottom: 20px; }
+.pricing-empty .btn { display: inline-block; margin-top: 4px; }
 
 /* FAQ */
 .faq-list { max-width: 780px; margin: 0 auto; }

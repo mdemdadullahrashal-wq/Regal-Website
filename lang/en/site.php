@@ -676,6 +676,11 @@ return [
     'product_cta_title' => 'Ready to get started?',
     'product_cta_body' => 'Book a demo and see how this product fits your business.',
     'product_contact_sales' => 'Talk to Sales',
+    'product_request_callback' => 'Request Callback',
+    'product_free_consultation' => 'Free Consultation',
+    'product_pricing_callback_title' => 'Pricing tailored to you',
+    'product_pricing_callback_body' => 'Talk to our team to find the right plan for your organisation size and needs — no sales pressure.',
+    'product_pricing_callback_btn' => 'Request a Callback',
     'product_related_title' => 'Related products',
 
     // Blog

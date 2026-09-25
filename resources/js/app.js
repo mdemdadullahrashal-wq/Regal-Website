@@ -186,8 +186,12 @@ document.querySelectorAll('[data-software-slider]').forEach((slider) => {
 const leadFab = document.getElementById('lead-fab');
 const leadPopup = document.getElementById('lead-popup');
 
-if (leadFab && leadPopup) {
-    const openPopup = () => {
+if (leadPopup) {
+    const openPopup = (productId) => {
+        if (productId) {
+            const sel = leadPopup.querySelector('select[name="product_id"]');
+            if (sel) sel.value = String(productId);
+        }
         leadPopup.classList.add('is-open');
         leadPopup.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -198,7 +202,15 @@ if (leadFab && leadPopup) {
         document.body.style.overflow = '';
     };
 
-    leadFab.addEventListener('click', openPopup);
+    if (leadFab) leadFab.addEventListener('click', () => openPopup());
+
+    // Any element with [data-lead-open] opens the callback popup (product pages)
+    document.querySelectorAll('[data-lead-open]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPopup(el.getAttribute('data-lead-product'));
+        });
+    });
 
     leadPopup.querySelectorAll('[data-lead-close]').forEach((el) => {
         el.addEventListener('click', closePopup);

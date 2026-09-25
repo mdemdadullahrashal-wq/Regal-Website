@@ -676,6 +676,11 @@ return [
     'product_cta_title' => 'শুরু করতে প্রস্তুত?',
     'product_cta_body' => 'ডেমো বুক করুন এবং দেখুন এই পণ্যটি আপনার ব্যবসায় কীভাবে খাপ খায়।',
     'product_contact_sales' => 'সেলস টিমের সাথে কথা বলুন',
+    'product_request_callback' => 'কলব্যাক রিকোয়েস্ট',
+    'product_free_consultation' => 'ফ্রি কনসালটেশন',
+    'product_pricing_callback_title' => 'আপনার জন্য কাস্টম মূল্য',
+    'product_pricing_callback_body' => 'আপনার প্রতিষ্ঠানের আকার ও চাহিদা অনুযায়ী সঠিক প্ল্যান ঠিক করতে আমাদের টিমের সাথে কথা বলুন — কোনো বিক্রয় চাপ ছাড়াই।',
+    'product_pricing_callback_btn' => 'কলব্যাক রিকোয়েস্ট করুন',
     'product_related_title' => 'সম্পর্কিত পণ্য',
 
     // Blog

@@ -65,7 +65,7 @@
                 @if ($product->demo_url)
                     <a href="{{ $product->demo_url }}" target="_blank" rel="noopener" class="btn btn-primary">{{ __('site.product_demo') }}</a>
                 @else
-                    <a href="{{ route('contact') }}" class="btn btn-primary">{{ __('site.product_demo') }}</a>
+                    <button type="button" class="btn btn-primary" data-lead-open data-lead-product="{{ $product->id }}">{{ __('site.product_request_callback') }}</button>
                 @endif
                 @if ($product->register_url)
                     <a href="{{ $product->register_url }}" target="_blank" rel="noopener" class="btn btn-outline">{{ __('site.product_register') }}</a>
@@ -83,7 +83,11 @@
 
 {{-- ── Highlights slider ── --}}
 @php
-    $pFeatures = $product->localizedFeatures();
+    $pFeatures = collect($product->localizedFeatures())
+        ->map(fn ($f) => is_array($f) ? ($f['t'] ?? ($f['title'] ?? '')) : $f)
+        ->filter()
+        ->values()
+        ->all();
     $pChunkSize = max(1, (int) ceil(count($pFeatures) / 3));
     $pChunks = array_values(array_chunk($pFeatures, $pChunkSize));
     $pSlideTitles = [__('site.slide_title_1'), __('site.slide_title_2'), __('site.slide_title_3')];
@@ -122,9 +126,16 @@
 
         <div class="feature-grid">
             @foreach ($product->localizedFeatures() as $feature)
+                @php
+                    $fTitle = is_array($feature) ? ($feature['t'] ?? ($feature['title'] ?? '')) : $feature;
+                    $fDesc  = is_array($feature) ? ($feature['d'] ?? ($feature['desc'] ?? '')) : '';
+                @endphp
                 <div class="feature-card reveal">
                     <div class="feature-icon" style="background:#fff0f0;color:#e02525;">✓</div>
-                    <h3>{{ $feature }}</h3>
+                    <h3>{{ $fTitle }}</h3>
+                    @if ($fDesc)
+                        <p>{{ $fDesc }}</p>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -135,10 +146,10 @@
 {{-- ── Pricing / CTA ── --}}
 <section class="page-section">
     <div class="container">
-        <p class="section-eyebrow reveal">{{ __('site.product_pricing_eyebrow') }}</p>
-        <h2 class="section-title reveal">{{ __('site.product_pricing_title') }}</h2>
-
         @if ($product->localizedPricing())
+            <p class="section-eyebrow reveal">{{ __('site.product_pricing_eyebrow') }}</p>
+            <h2 class="section-title reveal">{{ __('site.product_pricing_title') }}</h2>
+
             <div class="pricing-grid">
                 @foreach ($product->localizedPricing() as $plan)
                     <div class="pricing-card reveal">
@@ -156,8 +167,10 @@
             </div>
         @else
             <div class="pricing-empty reveal">
-                <p>{{ __('site.product_pricing_contact') }}</p>
-                <a href="{{ route('contact') }}" class="btn btn-primary">{{ __('site.product_contact_pricing') }}</a>
+                <p class="section-eyebrow">{{ __('site.product_pricing_eyebrow') }}</p>
+                <h2 class="section-title">{{ __('site.product_pricing_callback_title') }}</h2>
+                <p>{{ __('site.product_pricing_callback_body') }}</p>
+                <button type="button" class="btn btn-primary" data-lead-open data-lead-product="{{ $product->id }}">{{ __('site.product_pricing_callback_btn') }}</button>
             </div>
         @endif
     </div>
