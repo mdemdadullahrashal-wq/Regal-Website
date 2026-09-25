@@ -4082,3 +4082,16 @@ footer .tel-link { color: inherit; font-weight: 600; }
         scroll-snap-align: start;
     }
 }
+
+/* ═══════════════════════════════════════════════════════
+   FULL-WIDTH CONTENT-AREA PRODUCTS DROPDOWN (2026-09-26)
+═══════════════════════════════════════════════════════ */
+@media (min-width: 901px) {
+    .nav-mega__panel {
+        position: fixed;
+        top: 84px;
+        left: 50%;
+        width: min(1120px, 92%);
+        max-width: none;
+    }
+}
