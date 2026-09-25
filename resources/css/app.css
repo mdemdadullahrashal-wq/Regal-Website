@@ -245,7 +245,8 @@ body {
     top: calc(100% + 12px);
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
-    width: 380px;
+    width: 720px;
+    max-width: calc(100vw - 24px);
     background: #fff;
     border: 1px solid rgba(220, 220, 220, 0.7);
     border-radius: 20px;
@@ -292,10 +293,10 @@ body {
 }
 
 .nav-mega__grid {
-    padding: 10px 10px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    padding: 10px 12px 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 6px;
 }
 
 .nav-mega__item {

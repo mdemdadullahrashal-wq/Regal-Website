@@ -81,42 +81,6 @@
     </div>
 </section>
 
-{{-- ── Highlights slider ── --}}
-@php
-    $pFeatures = collect($product->localizedFeatures())
-        ->map(fn ($f) => is_array($f) ? ($f['t'] ?? ($f['title'] ?? '')) : $f)
-        ->filter()
-        ->values()
-        ->all();
-    $pChunkSize = max(1, (int) ceil(count($pFeatures) / 3));
-    $pChunks = array_values(array_chunk($pFeatures, $pChunkSize));
-    $pSlideTitles = [__('site.slide_title_1'), __('site.slide_title_2'), __('site.slide_title_3')];
-    $pSlides = [];
-    foreach ($pChunks as $ci => $chunk) {
-        $pSlides[] = [
-            'accent' => $product->accentColor(),
-            'badge' => __('site.slide_highlight_badge').' '.($ci + 1),
-            'title' => $pSlideTitles[$ci] ?? $product->localizedName(),
-            'features' => $chunk,
-            'tags' => [],
-            'cta_url' => ($ci === count($pChunks) - 1) ? ($product->demo_url ?: route('contact')) : null,
-            'cta_label' => $product->demo_url ? __('site.product_demo') : __('site.cta_contact'),
-            'icon' => $product,
-            'visual_title' => $product->localizedName(),
-            'visual_kicker' => __('site.slide_visual_kicker'),
-        ];
-    }
-@endphp
-<section class="software-slider-section">
-    <div class="container">
-        <div class="software-slider-header reveal">
-            <h2>{{ __('site.product_highlights_title') }}</h2>
-            <p>{{ $product->localizedSummary() }}</p>
-        </div>
-        @include('partials.software-slider', ['slides' => $pSlides])
-    </div>
-</section>
-
 {{-- ── Features ── --}}
 @if (! empty($product->localizedFeatures()))
 <section class="page-section">
