@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="ti12y6Wk6wQ9r6EjRlTaAg5eMW-v5CLAnBh_Xi6BSZc" />
     <title>{{ $metaTitle ?? config('regal.brand_name') }}</title>
     <meta name="description" content="{{ $metaDescription ?? config('regal.tagline') }}">
 
